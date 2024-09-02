@@ -1,10 +1,6 @@
 package com.book.springtask.controller;
-
-
 import com.book.springtask.entity.Student;
 import com.book.springtask.services.StudentService;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

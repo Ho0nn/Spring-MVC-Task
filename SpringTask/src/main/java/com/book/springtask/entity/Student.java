@@ -15,7 +15,7 @@ public class Student {
 
     @Column(name = "name")
     private String name;
-    @Email
+
     @Column(name = "email")
     private String email;
     @ManyToMany
