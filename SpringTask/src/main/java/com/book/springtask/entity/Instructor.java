@@ -18,7 +18,7 @@ public class Instructor {
     private List<Course> courses = new ArrayList<>();
 
     @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<Quiz> quizzes = new ArrayList<>()  ;
 
     public int getId() {
         return id;
