@@ -21,9 +21,7 @@ public class CourseController {
     public ResponseEntity<String> insert(@RequestBody CourseDTO courseDto) {
         courseService.insert(courseDto.toEntity(), courseDto.getInstructorId());
         return ResponseEntity.ok("Course created successfully");
-
     }
-
     @GetMapping
     public ResponseEntity<List<Course>> findAll() {
         List<Course> courses = courseService.findAll();

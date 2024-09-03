@@ -27,17 +27,15 @@ public class QuizController {
         List<Quiz> quizzes = quizService.findAll();
         return ResponseEntity.ok(quizzes);
     }
-
     @GetMapping("/id/{id}")
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(quizService.findById(id));
     }
 
-    @GetMapping("/course-name/{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) {
         return ResponseEntity.ok(quizService.findByCourseName(name));
     }
-
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Quiz entity) {
         Quiz quiz = quizService.update(entity);

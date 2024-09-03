@@ -36,9 +36,20 @@ public class StudentController {
 
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Student entity) {
-        Student updatedStudentOpt = studentService.update(entity);
-            return ResponseEntity.ok(updatedStudentOpt);
+        Student updatedStudent = studentService.update(entity);
+            return ResponseEntity.ok(updatedStudent);
     }
+    @PostMapping("/{studId}/enroll_course")
+    public ResponseEntity<?> enrollCourse(@PathVariable int studId,@RequestParam int courseId){
+        studentService.enrollCourse(studId,courseId);
+        return ResponseEntity.ok("Enrolled into the Course successfully!");
+    }
+    @PostMapping("/{studId}/enroll_quiz")
+    public ResponseEntity<?> enrollQuiz(@PathVariable int studId,@RequestParam int quizId){
+        studentService.enrollQuiz(studId,quizId);
+        return ResponseEntity.ok("Enrolled into the Quiz successfully!");
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Integer id) {
       studentService.deleteById(id);
