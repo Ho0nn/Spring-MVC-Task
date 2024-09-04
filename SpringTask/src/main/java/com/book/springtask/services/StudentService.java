@@ -8,6 +8,8 @@ import com.book.springtask.errors.DuplicateRecordException;
 import com.book.springtask.repository.CourseRepo;
 import com.book.springtask.repository.QuizRepo;
 import com.book.springtask.repository.StudentRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class StudentService extends BaseService<Student,Integer> {
     private CourseRepo courseRepo;
     @Autowired
     private QuizRepo quizRepo;
+    Logger log = LoggerFactory.getLogger(StudentService.class);
     public StudentService(StudentRepo studentRepo) {
         super(studentRepo);
         this.studentRepo=studentRepo;
@@ -30,7 +33,9 @@ public class StudentService extends BaseService<Student,Integer> {
     public Student insert(Student entity) {
         if(!entity.getEmail().isEmpty() && entity.getEmail()!=null){
             Optional<Student> student=findByEmail(entity.getEmail());
+            log.info("Student name is {} and email is{} ", entity.getName(), entity.getEmail());
             if (student.isPresent()){
+                log.error("email is exist already!");
                 throw new DuplicateRecordException("This email has been founded already !");
             }
         }
