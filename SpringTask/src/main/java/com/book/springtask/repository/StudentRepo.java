@@ -1,5 +1,6 @@
 package com.book.springtask.repository;
 
+import com.book.springtask.base.BaseRepo;
 import com.book.springtask.entity.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface StudentRepo extends JpaRepository<Student,Integer>{
+public interface StudentRepo extends BaseRepo<Student,Integer> {
     List<Student> findByName(String name);
     Optional<Student> findById(Integer id);
     List<Student> findAll();

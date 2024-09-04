@@ -1,11 +1,14 @@
 package com.book.springtask.controller;
 import com.book.springtask.entity.Student;
 import com.book.springtask.services.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+@Validated
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -30,7 +33,7 @@ public class StudentController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<?> findByName(@PathVariable String name) {
+    public ResponseEntity<?> findByName(@PathVariable  String name) {
         return ResponseEntity.ok(studentService.findByName(name));
     }
 
@@ -44,7 +47,7 @@ public class StudentController {
         studentService.enrollCourse(studId,courseId);
         return ResponseEntity.ok("Enrolled into the Course successfully!");
     }
-    @PostMapping("/{studId}/enroll_quiz")
+    @PostMapping("/{studId}/")
     public ResponseEntity<?> enrollQuiz(@PathVariable int studId,@RequestParam int quizId){
         studentService.enrollQuiz(studId,quizId);
         return ResponseEntity.ok("Enrolled into the Quiz successfully!");

@@ -1,36 +1,32 @@
 package com.book.springtask.entity;
 
+import com.book.springtask.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "courses")
-public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class Course extends BaseEntity<Integer> {
+   @NotBlank
     private String name;
 
+   // @JsonManagedReference("course-students")
     @ManyToMany(mappedBy = "courses")
     private List<Student> students = new ArrayList<>();
 
+   // @JsonManagedReference("course-instructor")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
+    @JsonManagedReference("course-quizzes")
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Quiz> quizzes = new ArrayList<>();
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

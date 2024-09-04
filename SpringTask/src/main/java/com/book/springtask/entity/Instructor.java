@@ -1,32 +1,24 @@
 package com.book.springtask.entity;
 
+import com.book.springtask.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "instructors")
-public class Instructor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Instructor extends BaseEntity<Integer> {
 
-    @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
+   // @JsonBackReference
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> courses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
-    private List<Quiz> quizzes = new ArrayList<>()  ;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    //@JsonBackReference
+    @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Quiz> quizzes = new ArrayList<>();
 
     public String getName() {
         return name;

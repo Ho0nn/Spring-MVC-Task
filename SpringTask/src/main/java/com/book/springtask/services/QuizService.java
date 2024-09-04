@@ -1,5 +1,7 @@
 package com.book.springtask.services;
 
+import com.book.springtask.base.BaseRepo;
+import com.book.springtask.base.BaseService;
 import com.book.springtask.entity.Course;
 import com.book.springtask.entity.Quiz;
 import com.book.springtask.repository.CourseRepo;
@@ -11,12 +13,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class QuizService {
+public class QuizService extends BaseService<Quiz,Integer> {
 
     @Autowired
     private QuizRepo quizRepo;
     @Autowired
     private CourseRepo courseRepo;
+
+    public QuizService(QuizRepo quizRepo) {
+        super(quizRepo);
+        this.quizRepo=quizRepo;
+    }
 
 
     public Quiz insert(Quiz quiz) {
@@ -29,14 +36,6 @@ public class QuizService {
 
     public List<Quiz> findByCourseName(String name) {
         return quizRepo.findByCourseName(name);
-    }
-
-    public Optional<Quiz> findById(Integer id) {
-        return quizRepo.findById(id);
-    }
-
-    public List<Quiz> findAll() {
-        return quizRepo.findAll();
     }
 
     public Quiz update(Quiz quiz) {
@@ -53,8 +52,5 @@ public class QuizService {
         } else {
             return null;
         }
-    }
-    public void deleteById(Integer id) {
-        quizRepo.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.book.springtask.repository;
 
+import com.book.springtask.base.BaseRepo;
 import com.book.springtask.entity.Instructor;
 import com.book.springtask.entity.Quiz;
 import jakarta.transaction.Transactional;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface QuizRepo extends JpaRepository<Quiz,Integer>{
+public interface QuizRepo extends BaseRepo<Quiz,Integer> {
     List<Quiz> findByCourseName(String name);
     Optional<Quiz> findById(Integer id);
     List<Quiz> findAll();
