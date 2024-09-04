@@ -14,5 +14,6 @@ public interface StudentRepo extends BaseRepo<Student,Integer> {
     List<Student> findByName(String name);
     Optional<Student> findById(Integer id);
     List<Student> findAll();
+    Optional<Student>findByEmail(String email);
 
 }

@@ -17,17 +17,23 @@ public class BaseService<T extends BaseEntity<ID>,ID extends Number> {
     public BaseService(BaseRepo<T,ID> baseRepo){
         this.baseRepo=baseRepo;
     }
+    public T insert(T entity) {
+        if (entity.getId() != null) {
+            throw new IllegalArgumentException("ID should be null when inserting a new entity.");
+        }
+        return baseRepo.save(entity);
+    }
     public T findById(ID id) {
         Optional<T> entity = baseRepo.findById(id);
         if (entity.isPresent()) return entity.get();
         else {
-            String [] msgparam={id.toString()};
-            String msg= messageSource.getMessage("validation.recordNotFound.message",msgparam, LocaleContextHolder.getLocale());
-            throw new RecordNotFoundException(msg);
+//            String [] msgparam={id.toString()};
+//            String msg= messageSource.getMessage("validation.recordNotFound.message",msgparam, LocaleContextHolder.getLocale());
+            throw new RecordNotFoundException("This ID is not exist");
         }
     }
     public T getById(ID id) {
-        return baseRepo.getById(id);
+        return baseRepo .getById(id);
     }
 
     public List<T> findAll() {

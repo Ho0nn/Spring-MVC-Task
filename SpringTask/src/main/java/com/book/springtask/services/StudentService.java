@@ -4,6 +4,7 @@ import com.book.springtask.base.BaseService;
 import com.book.springtask.entity.Course;
 import com.book.springtask.entity.Quiz;
 import com.book.springtask.entity.Student;
+import com.book.springtask.errors.DuplicateRecordException;
 import com.book.springtask.repository.CourseRepo;
 import com.book.springtask.repository.QuizRepo;
 import com.book.springtask.repository.StudentRepo;
@@ -25,11 +26,21 @@ public class StudentService extends BaseService<Student,Integer> {
         super(studentRepo);
         this.studentRepo=studentRepo;
     }
-
-    public Student insert(Student student) {
-        return studentRepo.save(student);
+    @Override
+    public Student insert(Student entity) {
+        if(!entity.getEmail().isEmpty() && entity.getEmail()!=null){
+            Optional<Student> student=findByEmail(entity.getEmail());
+            if (student.isPresent()){
+                throw new DuplicateRecordException("This email has been founded already !");
+            }
+        }
+        return super.insert(entity);
     }
 
+
+    private Optional<Student>findByEmail(String email){
+        return studentRepo.findByEmail(email);
+    }
     public List<Student> findByName(String name) {
         return studentRepo.findByName(name);
     }
@@ -72,4 +83,6 @@ public class StudentService extends BaseService<Student,Integer> {
         studentRepo.save(student);
         return quiz;
     }
+
+
 }
